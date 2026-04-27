@@ -1,0 +1,29 @@
+services:
+  frontend:
+    build: ./frontend
+    container_name: petadote-frontend
+    ports:
+      - "8080:80"
+    depends_on:
+      - backend
+
+  backend:
+    build: ./backend
+    container_name: petadote-backend
+    ports:
+      - "3001:3001"
+    environment:
+      DATABASE_URL: mongodb://database:27017/petadote
+    depends_on:
+      - database
+
+  database:
+    image: mongo:7
+    container_name: petadote-database
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+
+volumes:
+  mongo_data:
