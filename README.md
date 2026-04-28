@@ -6,7 +6,7 @@ O PetAdote é uma proposta de sistema web para um abrigo de resgate divulgar pet
 
 ## Objetivo da aplicacao
 
-O sistema tem como objetivo facilitar a divulgacao de pets disponiveis para adocao. Nas proximas etapas, um administrador podera cadastrar, editar e remover pets, e usuarios interessados poderao visualizar os pets e enviar um formulario de interesse.
+O sistema tem como objetivo facilitar a divulgacao de pets disponiveis para adoção. Nas proximas etapas, um administrador podera cadastrar, editar e remover pets, e usuarios interessados poderao visualizar os pets e enviar um formulario de interesse.
 
 ## Tecnologias utilizadas
 
@@ -77,7 +77,7 @@ Branches planejadas para a organizacao do projeto:
 - `feature/frontend`: estrutura inicial do front-end
 - `feature/backend`: estrutura inicial do back-end
 
-## CRUD principal
+## CRUD principal inicial
 
 O CRUD principal do projeto sera o cadastro de pets:
 
@@ -86,7 +86,6 @@ O CRUD principal do projeto sera o cadastro de pets:
 - Update: editar informacoes de um pet
 - Delete: remover um pet
 
-Nesta primeira entrega, ainda nao foi implementado o CRUD completo. O objetivo agora é apenas entregar a estrutura inicial com Docker e Docker Compose.
 
 ## Integrantes da equipe
 
