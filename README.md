@@ -1,6 +1,6 @@
 # PetAdote
 
-Projeto da primeira entrega da disciplina de DevOps.
+Projeto da disciplina de DevOps.
 
 O PetAdote é uma proposta de sistema web para um abrigo de resgate divulgar pets disponiveis para adocao. Nesta etapa inicial, o foco é deixar o ambiente organizado, conteinerizado e pronto para a continuidade do desenvolvimento.
 
