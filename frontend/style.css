@@ -19,7 +19,7 @@ body {
 
 .box {
   width: 100%;
-  max-width: 560px;
+  max-width: 720px;
   background: #ffffff;
   border: 1px solid #d9e0e7;
   border-radius: 8px;
@@ -33,6 +33,11 @@ h1 {
 
 p {
   line-height: 1.5;
+}
+
+h2 {
+  margin-top: 32px;
+  font-size: 22px;
 }
 
 button {
@@ -55,3 +60,30 @@ button:hover {
   font-weight: bold;
 }
 
+.lista-pets {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+  margin-top: 16px;
+}
+
+.pet-card {
+  border: 1px solid #d9e0e7;
+  border-radius: 8px;
+  padding: 16px;
+  background: #f8fafc;
+}
+
+.pet-card h3 {
+  margin: 0 0 8px;
+}
+
+.pet-card span {
+  display: inline-block;
+  margin-top: 8px;
+  padding: 4px 8px;
+  border-radius: 6px;
+  background: #dcfce7;
+  color: #166534;
+  font-size: 14px;
+}
