@@ -13,17 +13,46 @@ services:
     ports:
       - "3001:3001"
     environment:
-      DATABASE_URL: mongodb://database:27017/petadote
+      DATABASE_URL: mongodb://database:27017/petadote?replicaSet=rs0
     depends_on:
       - database
+      - mongo-init
 
   database:
     image: mongo:7
     container_name: petadote-database
+    command: ["mongod", "--replSet", "rs0", "--bind_ip_all"]
     ports:
       - "27017:27017"
     volumes:
       - mongo_data:/data/db
 
+  mongo-init:
+    image: mongo:7
+    container_name: petadote-mongo-init
+    depends_on:
+      - database
+    entrypoint:
+      [
+        "bash",
+        "-c",
+        "sleep 5 && mongosh --host database:27017 --eval 'try { rs.status() } catch (e) { rs.initiate({_id:\"rs0\", members:[{_id:0, host:\"database:27017\"}]}) }'"
+      ]
+
+  sonarqube:
+    image: sonarqube:community
+    container_name: petadote-sonarqube
+    ports:
+      - "9000:9000"
+    environment:
+      SONAR_ES_BOOTSTRAP_CHECKS_DISABLE: "true"
+    volumes:
+      - sonarqube_data:/opt/sonarqube/data
+      - sonarqube_extensions:/opt/sonarqube/extensions
+      - sonarqube_logs:/opt/sonarqube/logs
+
 volumes:
   mongo_data:
+  sonarqube_data:
+  sonarqube_extensions:
+  sonarqube_logs:
