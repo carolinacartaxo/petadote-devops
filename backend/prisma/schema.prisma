@@ -8,10 +8,24 @@ datasource db {
 }
 
 model Pet {
-  id        String  @id @default(auto()) @map("_id") @db.ObjectId
+  id          String      @id @default(auto()) @map("_id") @db.ObjectId
+  nome        String
+  idade       String
+  descricao   String
+  foto        String?
+  status      String      @default("Disponivel")
+  criadoEm    DateTime    @default(now())
+  atualizadoEm DateTime   @updatedAt
+  interesses  Interesse[]
+}
+
+model Interesse {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  petId     String   @db.ObjectId
   nome      String
-  idade     String
-  descricao String
-  foto      String?
-  status    String  @default("Disponivel")
+  email     String
+  telefone  String?
+  mensagem  String
+  criadoEm  DateTime @default(now())
+  pet       Pet      @relation(fields: [petId], references: [id])
 }
