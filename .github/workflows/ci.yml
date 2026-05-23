@@ -42,4 +42,4 @@ jobs:
 
       - name: SonarQube scan
         if: env.SONAR_HOST_URL != '' && env.SONAR_TOKEN != ''
-        uses: SonarSource/sonarqube-scan-action@v5
+        uses: SonarSource/sonarqube-scan-action@v6
