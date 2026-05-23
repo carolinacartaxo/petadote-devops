@@ -1,5 +1,7 @@
 # PetAdote
 
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=carolinacartaxo_petadote-devops&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=carolinacartaxo_petadote-devops)
+
 Projeto da disciplina de DevOps.
 
 O PetAdote é uma proposta de sistema web para um abrigo de resgate divulgar pets disponiveis para adocao. Nesta etapa inicial, o foco é deixar o ambiente organizado, conteinerizado e pronto para a continuidade do desenvolvimento.
