@@ -1,6 +1,6 @@
 const API_URL = "http://localhost:3001";
 
-const botao = document.getElementById("checkBackend");
+const apiStatus = document.getElementById("apiStatus");
 const resultado = document.getElementById("resultado");
 const listaPets = document.getElementById("listaPets");
 const formPet = document.getElementById("formPet");
@@ -14,21 +14,23 @@ const camposPet = {
   idade: document.getElementById("idade"),
   foto: document.getElementById("foto"),
   status: document.getElementById("status"),
-  descricao: document.getElementById("descricao")
+  descricao: document.getElementById("descricao"),
 };
 
-botao.addEventListener("click", async () => {
-  resultado.textContent = "Consultando...";
-
+async function verificarStatusApi() {
   try {
     const resposta = await fetch(`${API_URL}/status`);
     const dados = await resposta.json();
 
+    apiStatus.textContent = "API conectada";
+    apiStatus.className = "status-api status-online";
     resultado.textContent = `${dados.mensagem} Banco definido: ${dados.banco}.`;
   } catch (error) {
+    apiStatus.textContent = "API indisponivel";
+    apiStatus.className = "status-api status-offline";
     resultado.textContent = "Nao foi possivel conectar com o back-end.";
   }
-});
+}
 
 formPet.addEventListener("submit", async (event) => {
   event.preventDefault();
@@ -38,7 +40,7 @@ formPet.addEventListener("submit", async (event) => {
     idade: camposPet.idade.value,
     foto: camposPet.foto.value,
     status: camposPet.status.value,
-    descricao: camposPet.descricao.value
+    descricao: camposPet.descricao.value,
   };
 
   const id = camposPet.id.value;
@@ -49,9 +51,9 @@ formPet.addEventListener("submit", async (event) => {
     const resposta = await fetch(url, {
       method: metodo,
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
       },
-      body: JSON.stringify(pet)
+      body: JSON.stringify(pet),
     });
 
     if (!resposta.ok) {
@@ -60,7 +62,9 @@ formPet.addEventListener("submit", async (event) => {
 
     limparFormularioPet();
     await carregarPets();
-    resultado.textContent = id ? "Pet atualizado com sucesso." : "Pet cadastrado com sucesso.";
+    resultado.textContent = id
+      ? "Pet atualizado com sucesso."
+      : "Pet cadastrado com sucesso.";
   } catch (error) {
     resultado.textContent = "Nao foi possivel salvar o pet.";
   }
@@ -74,16 +78,16 @@ formInteresse.addEventListener("submit", async (event) => {
     nome: document.getElementById("nomeInteressado").value,
     email: document.getElementById("emailInteressado").value,
     telefone: document.getElementById("telefoneInteressado").value,
-    mensagem: document.getElementById("mensagemInteressado").value
+    mensagem: document.getElementById("mensagemInteressado").value,
   };
 
   try {
     const resposta = await fetch(`${API_URL}/interesses`, {
       method: "POST",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
       },
-      body: JSON.stringify(interesse)
+      body: JSON.stringify(interesse),
     });
 
     if (!resposta.ok) {
@@ -111,7 +115,8 @@ async function carregarPets() {
 
     if (pets.length === 0) {
       listaPets.innerHTML = "<p>Nenhum pet cadastrado.</p>";
-      petInteresse.innerHTML = "<option value=''>Nenhum pet disponivel</option>";
+      petInteresse.innerHTML =
+        "<option value=''>Nenhum pet disponivel</option>";
       return;
     }
 
@@ -183,7 +188,7 @@ async function excluirPet(id) {
 
   try {
     const resposta = await fetch(`${API_URL}/pets/${id}`, {
-      method: "DELETE"
+      method: "DELETE",
     });
 
     if (!resposta.ok) {
@@ -197,4 +202,5 @@ async function excluirPet(id) {
   }
 }
 
+verificarStatusApi();
 carregarPets();

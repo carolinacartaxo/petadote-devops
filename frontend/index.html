@@ -1,85 +1,113 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-BR">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PetAdote</title>
-  <link rel="stylesheet" href="style.css" />
-</head>
-<body>
-  <main class="container">
-    <section class="cabecalho">
-      <div>
-        <h1>PetAdote</h1>
-        <p>Sistema web para um abrigo divulgar pets disponiveis para adocao.</p>
-      </div>
-
-      <button id="checkBackend" type="button">Testar back-end</button>
-    </section>
-
-    <p id="resultado" class="mensagem">Clique no botão para verificar a API.</p>
-
-    <section class="painel">
-      <form id="formPet" class="formulario">
-        <h2>Cadastro de pet</h2>
-
-        <input type="hidden" id="petId" />
-
-        <label for="nome">Nome</label>
-        <input id="nome" type="text" placeholder="Ex: Mel" required />
-
-        <label for="idade">Idade</label>
-        <input id="idade" type="text" placeholder="Ex: 2 anos" required />
-
-        <label for="foto">Foto</label>
-        <input id="foto" type="url" placeholder="Link da foto (opcional)" />
-
-        <label for="status">Status</label>
-        <select id="status" required>
-          <option value="Disponivel">Disponivel</option>
-          <option value="Em processo">Em processo</option>
-          <option value="Adotado">Adotado</option>
-        </select>
-
-        <label for="descricao">Descricao</label>
-        <textarea id="descricao" rows="4" placeholder="Descreva o pet" required></textarea>
-
-        <div class="acoes-form">
-          <button type="submit">Salvar pet</button>
-          <button id="cancelarEdicao" class="botao-secundario" type="button">Cancelar</button>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PetAdote</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <main class="container">
+      <section class="cabecalho">
+        <div>
+          <h1>PetAdote</h1>
+          <p>
+            Sistema web para um abrigo divulgar pets disponiveis para adocao.
+          </p>
         </div>
-      </form>
 
-      <form id="formInteresse" class="formulario">
-        <h2>Interesse em adocao</h2>
+        <span id="apiStatus" class="status-api status-carregando"
+          >Verificando API...</span
+        >
+      </section>
 
-        <label for="petInteresse">Pet</label>
-        <select id="petInteresse" required></select>
+      <p id="resultado" class="mensagem">
+        Carregando informacoes do sistema...
+      </p>
 
-        <label for="nomeInteressado">Nome</label>
-        <input id="nomeInteressado" type="text" placeholder="Seu nome" required />
+      <section class="painel">
+        <form id="formPet" class="formulario">
+          <h2>Cadastro de pet</h2>
 
-        <label for="emailInteressado">E-mail</label>
-        <input id="emailInteressado" type="email" placeholder="seuemail@email.com" required />
+          <input type="hidden" id="petId" />
 
-        <label for="telefoneInteressado">Telefone</label>
-        <input id="telefoneInteressado" type="text" placeholder="Opcional" />
+          <label for="nome">Nome</label>
+          <input id="nome" type="text" placeholder="Ex: Mel" required />
 
-        <label for="mensagemInteressado">Mensagem</label>
-        <textarea id="mensagemInteressado" rows="4" placeholder="Conte por que deseja adotar" required></textarea>
+          <label for="idade">Idade</label>
+          <input id="idade" type="text" placeholder="Ex: 2 anos" required />
 
-        <button type="submit">Enviar interesse</button>
-      </form>
-    </section>
+          <label for="foto">Foto</label>
+          <input id="foto" type="url" placeholder="Link da foto (opcional)" />
 
-    <section>
-      <h2>Pets disponiveis</h2>
-      <div id="listaPets" class="lista-pets">
-        <p>Carregando pets...</p>
-      </div>
-    </section>
-  </main>
+          <label for="status">Status</label>
+          <select id="status" required>
+            <option value="Disponivel">Disponivel</option>
+            <option value="Em processo">Em processo</option>
+            <option value="Adotado">Adotado</option>
+          </select>
 
-  <script src="script.js"></script>
-</body>
+          <label for="descricao">Descricao</label>
+          <textarea
+            id="descricao"
+            rows="4"
+            placeholder="Descreva o pet"
+            required
+          ></textarea>
+
+          <div class="acoes-form">
+            <button type="submit">Salvar pet</button>
+            <button id="cancelarEdicao" class="botao-secundario" type="button">
+              Cancelar
+            </button>
+          </div>
+        </form>
+
+        <form id="formInteresse" class="formulario">
+          <h2>Interesse em adocao</h2>
+
+          <label for="petInteresse">Pet</label>
+          <select id="petInteresse" required></select>
+
+          <label for="nomeInteressado">Nome</label>
+          <input
+            id="nomeInteressado"
+            type="text"
+            placeholder="Seu nome"
+            required
+          />
+
+          <label for="emailInteressado">E-mail</label>
+          <input
+            id="emailInteressado"
+            type="email"
+            placeholder="seuemail@email.com"
+            required
+          />
+
+          <label for="telefoneInteressado">Telefone</label>
+          <input id="telefoneInteressado" type="text" placeholder="Opcional" />
+
+          <label for="mensagemInteressado">Mensagem</label>
+          <textarea
+            id="mensagemInteressado"
+            rows="4"
+            placeholder="Conte por que deseja adotar"
+            required
+          ></textarea>
+
+          <button type="submit">Enviar interesse</button>
+        </form>
+      </section>
+
+      <section>
+        <h2>Pets disponiveis</h2>
+        <div id="listaPets" class="lista-pets">
+          <p>Carregando pets...</p>
+        </div>
+      </section>
+    </main>
+
+    <script src="script.js"></script>
+  </body>
 </html>
