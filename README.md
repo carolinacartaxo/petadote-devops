@@ -61,7 +61,7 @@ Depois acesse:
 No primeiro acesso, use o login padrao:
 
 - Usuario: `admin`
-- Senha: `admin`
+- Senha: `PetAdote2026.`
 
 Depois crie um token no SonarQube e execute a analise local com o SonarScanner:
 
