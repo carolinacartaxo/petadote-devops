@@ -110,8 +110,14 @@ async function carregarPets() {
     petInteresse.innerHTML = "";
 
     if (pets.length === 0) {
-      listaPets.innerHTML = "<p>Nenhum pet cadastrado.</p>";
-      petInteresse.innerHTML = "<option value=''>Nenhum pet disponivel</option>";
+      const mensagemVazia = document.createElement("p");
+      mensagemVazia.textContent = "Nenhum pet cadastrado.";
+      listaPets.appendChild(mensagemVazia);
+
+      const opcaoVazia = document.createElement("option");
+      opcaoVazia.value = "";
+      opcaoVazia.textContent = "Nenhum pet disponivel";
+      petInteresse.appendChild(opcaoVazia);
       return;
     }
 
@@ -124,7 +130,11 @@ async function carregarPets() {
       petInteresse.appendChild(opcao);
     });
   } catch (error) {
-    listaPets.innerHTML = "<p>Nao foi possivel carregar os pets.</p>";
+    listaPets.innerHTML = "";
+
+    const mensagemErro = document.createElement("p");
+    mensagemErro.textContent = "Nao foi possivel carregar os pets.";
+    listaPets.appendChild(mensagemErro);
   }
 }
 
@@ -132,29 +142,53 @@ function criarCardPet(pet) {
   const card = document.createElement("article");
   card.className = "pet-card";
 
-  const imagem = pet.foto
-    ? `<img src="${pet.foto}" alt="Foto do pet ${pet.nome}" />`
-    : "";
+  if (pet.foto) {
+    const imagem = document.createElement("img");
+    imagem.src = pet.foto;
+    imagem.alt = `Foto do pet ${pet.nome}`;
+    card.appendChild(imagem);
+  }
 
-  card.innerHTML = `
-    ${imagem}
-    <h3>${pet.nome}</h3>
-    <p><strong>Idade:</strong> ${pet.idade}</p>
-    <p>${pet.descricao}</p>
-    <span>${pet.status}</span>
-    <div class="acoes-card">
-      <button type="button" data-acao="editar">Editar</button>
-      <button type="button" data-acao="excluir" class="botao-perigo">Excluir</button>
-    </div>
-  `;
+  const nome = document.createElement("h3");
+  nome.textContent = pet.nome;
+  card.appendChild(nome);
 
-  card.querySelector("[data-acao='editar']").addEventListener("click", () => {
+  const idade = document.createElement("p");
+  const idadeLabel = document.createElement("strong");
+  idadeLabel.textContent = "Idade:";
+  idade.appendChild(idadeLabel);
+  idade.append(` ${pet.idade}`);
+  card.appendChild(idade);
+
+  const descricao = document.createElement("p");
+  descricao.textContent = pet.descricao;
+  card.appendChild(descricao);
+
+  const status = document.createElement("span");
+  status.textContent = pet.status;
+  card.appendChild(status);
+
+  const acoes = document.createElement("div");
+  acoes.className = "acoes-card";
+
+  const botaoEditar = document.createElement("button");
+  botaoEditar.type = "button";
+  botaoEditar.textContent = "Editar";
+  botaoEditar.addEventListener("click", () => {
     preencherFormularioPet(pet);
   });
 
-  card.querySelector("[data-acao='excluir']").addEventListener("click", () => {
+  const botaoExcluir = document.createElement("button");
+  botaoExcluir.type = "button";
+  botaoExcluir.className = "botao-perigo";
+  botaoExcluir.textContent = "Excluir";
+  botaoExcluir.addEventListener("click", () => {
     excluirPet(pet.id);
   });
+
+  acoes.appendChild(botaoEditar);
+  acoes.appendChild(botaoExcluir);
+  card.appendChild(acoes);
 
   return card;
 }
