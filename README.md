@@ -19,7 +19,8 @@ O sistema tem como objetivo facilitar a divulgacao de pets disponiveis para ado�
 - Prisma
 - Docker
 - Docker Compose
-- SonarQube
+- SonarCloud
+- SonarQube local
 - GitHub Actions
 
 ## Como executar o projeto
@@ -44,9 +45,22 @@ Para parar os containers:
 docker compose down
 ```
 
-## SonarQube
+## SonarCloud e GitHub Actions
 
-O projeto possui um servico do SonarQube no Docker Compose e o arquivo `sonar-project.properties` na raiz do repositorio.
+O projeto esta integrado ao SonarCloud por meio do GitHub Actions. O arquivo `sonar-project.properties` define a organizacao, a chave do projeto e as pastas analisadas.
+
+O workflow de CI esta em `.github/workflows/ci.yml`. Ele instala as dependencias do backend, gera o Prisma Client, valida o Docker Compose e executa a analise de qualidade no SonarCloud.
+
+Para a etapa do SonarCloud funcionar no GitHub, cadastre estes secrets no repositorio:
+
+- `SONAR_HOST_URL`: `https://sonarcloud.io`
+- `SONAR_TOKEN`: token gerado no SonarCloud
+
+O workflow roda em pushes e pull requests para as branches `main` e `develop`.
+
+## SonarQube local
+
+O projeto tambem possui um servico opcional do SonarQube local no Docker Compose para testes fora do SonarCloud.
 
 Para iniciar o SonarQube localmente:
 
@@ -73,17 +87,6 @@ docker run --rm \
   -v "$PWD:/usr/src" \
   sonarsource/sonar-scanner-cli
 ```
-
-## GitHub Actions
-
-O workflow de CI esta em `.github/workflows/ci.yml`. Ele instala as dependencias do backend, gera o Prisma Client, valida o Docker Compose e executa a analise do SonarQube.
-
-Para a etapa do SonarQube funcionar no GitHub, cadastre estes secrets no repositorio:
-
-- `SONAR_HOST_URL`: URL do servidor SonarQube
-- `SONAR_TOKEN`: token gerado no SonarQube
-
-O workflow roda em pushes e pull requests para as branches `main` e `develop`.
 
 ## Comandos principais
 
@@ -141,14 +144,19 @@ projeto-devops/
 │   ├── prisma/
 │   │   └── schema.prisma
 │   ├── Dockerfile
+│   ├── package-lock.json
 │   ├── package.json
 │   └── server.js
+├── .github/
+│   └── workflows/
+│       └── ci.yml
 ├── frontend/
 │   ├── Dockerfile
 │   ├── index.html
 │   ├── script.js
 │   └── style.css
 ├── docker-compose.yml
+├── sonar-project.properties
 ├── .gitignore
 └── README.md
 ```
@@ -161,6 +169,9 @@ Branches planejadas para a organizacao do projeto:
 - `develop`: branch de desenvolvimento
 - `feature/frontend`: estrutura inicial do front-end
 - `feature/backend`: estrutura inicial do back-end
+- `feature/listagem-pets`: listagem inicial de pets
+- `feature/melhora-status-api`: melhoria do status da API no front-end
+- `feature/testes-backend`: testes automatizados do back-end
 
 ## CRUD principal inicial
 
