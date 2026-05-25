@@ -209,6 +209,7 @@ app.post("/interesses", async (req, res) => {
   }
 });
 
+/* c8 ignore next 5 */
 if (require.main === module) {
   app.listen(port, () => {
     console.log(`Servidor rodando na porta ${port}`);
@@ -216,5 +217,4 @@ if (require.main === module) {
 }
 
 module.exports = app;
-
 
