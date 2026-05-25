@@ -209,6 +209,12 @@ app.post("/interesses", async (req, res) => {
   }
 });
 
-app.listen(port, () => {
-  console.log(`Servidor rodando na porta ${port}`);
-});
+/* c8 ignore next 5 */
+if (require.main === module) {
+  app.listen(port, () => {
+    console.log(`Servidor rodando na porta ${port}`);
+  });
+}
+
+module.exports = app;
+

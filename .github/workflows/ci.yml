@@ -30,15 +30,22 @@ jobs:
           node-version: 20
 
       - name: Install backend dependencies
-        run: npm install
+        run: npm ci
         working-directory: backend
 
       - name: Generate Prisma client
-        run: npx prisma generate
+        run: ./node_modules/.bin/prisma generate
+        working-directory: backend
+
+      - name: Run backend tests
+        run: npm test
         working-directory: backend
 
       - name: Validate Docker Compose file
         run: docker compose config
+
+      - name: Build Docker services
+        run: docker compose build
 
       - name: SonarQube scan
         if: env.SONAR_HOST_URL != '' && env.SONAR_TOKEN != ''
